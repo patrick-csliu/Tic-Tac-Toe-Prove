@@ -1,4 +1,4 @@
-from chessbord import Board
+from chessboard import Board
 
 wins = []
 
