@@ -35,3 +35,6 @@ Python script: `tictactoe.py`, run:
 ```shell
 $ python tictactoe.py
 ```
+
+## Version2
+If you're having difficulty understanding the program, feel free to switch over to the `version2` branch for a potentially easier version.
