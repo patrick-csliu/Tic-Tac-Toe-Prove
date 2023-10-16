@@ -38,3 +38,6 @@ $ python tictactoe.py
 
 ## Version2
 If you're having difficulty understanding the program, feel free to switch over to the `version2` branch for a potentially easier version.
+
+## Chess board module
+In `chessboard.py`, the `Board` class has several methods that can be used, such as examining the game's history and creating a Tic Tac Toe game to play, and more.
