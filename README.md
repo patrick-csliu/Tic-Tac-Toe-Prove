@@ -9,7 +9,7 @@ To prove this, we must first show that the first player must win, then prove tha
 ![Diagram](1.jpg)
 
 - $\text{Denote } w \text{ as O must win (boolean)}$
-- $w = w(\text{game\_status})$, where "$\text{game\_status}$" represents the current state of the game.
+- $w = w(\text{game status})$, where "$\text{game status}$" represents the current state of the game.
 
 - During "O" turns, if the current game status allows "O" to make a move that would lead to an "O" victory, we can conclude that $w$ is true.
 
@@ -22,7 +22,7 @@ To prove this, we must first show that the first player must win, then prove tha
 ### Second, proof second player must win
 ![](2.jpg)
 - $\text{Denote } w \text{ as X must win (boolean)}$
-- $w = w(\text{game\_status})$, where "$\text{game\_status}$" represents the current state of the game.
+- $w = w(\text{game status})$, where "$\text{game status}$" represents the current state of the game.
 
 - During "O" turns, if the current game status, regardless of where "O" plays, would result in an "X" victory, we can also conclude that $w$ is true.
 
