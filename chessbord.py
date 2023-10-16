@@ -36,11 +36,11 @@ class Board:
     def __getitem__(self, key):
         return self.board[key]
     
-    def __setitem__(self, key, value):
-        self.board[key] = value
+    # def __setitem__(self, key, value):
+    #     self.board[key] = value
     
-    def __delitem__(self, key):
-        del self.data[key]
+    # def __delitem__(self, key):
+    #     del self.data[key]
     
     def show(self):
         print(repr(self))
@@ -60,6 +60,8 @@ class Board:
         return empty
         
     def put(self, position, player):
+        if self.board[position//3][position%3] is not None:
+            raise Exception("Position already occupied by another chess piece!")
         self.board[position//3][position%3] = player
         self.history.append(position)
 
@@ -89,13 +91,13 @@ if __name__ == "__main__":
     print("After X put at 7:")
     board.show()
     print("No space:", board.nospace())
+    board2 = board.copy()
     board.put(3, False)
     board.put(6, False)
     print("After X put at 3, 6:")
     board.show()
     print("No space:", board.nospace())
 
-    board2 = board.copy()
     board2.put(6, True)
     print("A copy:")
     board2.show()
