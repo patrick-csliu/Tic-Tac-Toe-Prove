@@ -10,6 +10,14 @@ winning_combinations = [
 
 
 class Board:
+    """Chess Board
+
+    position:
+    0 | 1 | 2
+    3 | 4 | 5
+    6 | 7 | 8
+    """
+
     def __init__(self, board=None, history=[]):
         if board:
             self.board = board
@@ -32,25 +40,25 @@ class Board:
         board_lines.insert(2, line)
         board_lines.insert(1, line)
         return "\n" + "\n".join(board_lines)
-    
+
     def __getitem__(self, key):
         return self.board[key]
-    
+
     # def __setitem__(self, key, value):
     #     self.board[key] = value
-    
+
     # def __delitem__(self, key):
     #     del self.data[key]
-    
+
     def show(self):
         print(repr(self))
-    
+
     def check_win(self, player):
         for combo in winning_combinations:
-            if all(self.board[i//3][i%3] == player for i in combo):
+            if all(self.board[i//3][i % 3] == player for i in combo):
                 return True
         return False
-    
+
     def is_empty(self):
         empty = []
         for row in range(3):
@@ -58,16 +66,30 @@ class Board:
                 if self.board[row][col] is None:
                     empty.append(row*3 + col)
         return empty
-        
-    def put(self, position, player):
-        if self.board[position//3][position%3] is not None:
-            raise Exception("Position already occupied by another chess piece!")
-        self.board[position//3][position%3] = player
+
+    def put(self, position: int, player: bool):
+        """Put chess
+
+        Parameters
+        ----------
+        position : int
+            0 | 1 | 2
+            3 | 4 | 5
+            6 | 7 | 8
+        player : bool
+            True: O
+            False: X
+
+        """
+        if self.board[position//3][position % 3] is not None:
+            raise Exception(
+                "Position already occupied by another chess piece!")
+        self.board[position//3][position % 3] = player
         self.history.append(position)
 
     def copy(self):
         return Board(_copy.deepcopy(self.board), history=self.history.copy())
-    
+
     def nospace(self):
         for row in self.board:
             for cell in row:

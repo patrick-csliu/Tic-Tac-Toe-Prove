@@ -12,7 +12,7 @@ untrue, then we can establish "No one can win".
 
 """
 
-from chessbord import Board
+from chessboard import Board
 
 
 def show(board):
