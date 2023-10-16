@@ -20,7 +20,7 @@ def show(board):
     print('='*10)
 
 
-def o_turns(board: Board, verify_o: bool) -> bool:
+def play_chess(board: Board, verify_o: bool, player: bool) -> bool:
     """Simulate "O's" turns.
 
     Parameters
@@ -30,75 +30,45 @@ def o_turns(board: Board, verify_o: bool) -> bool:
     verify_o : bool
         Determines whether we are verifying "O's" win or "X's" win.
         True for "O," False for "X."
+    player: bool
+        True stand for "O" turns.
+        False stand for "X" turns.
 
     Returns
     -------
     bool
-        If verify_o is True:
+        If verify_o is True and player is True:
             - Returns True if "O" will win with the right move.
             - Returns False if "O" will lose regardless of the move they make.
 
-        If verify_o is False:
+        If verify_o is False and player is True:
             - Returns True if "X" will win regardless of "O's" move.
             - Returns False if "X" will lose if "O" makes the right move.
-    """
-    next_chess = board.is_empty()
-    results = []
-    for pos in next_chess:
-        board_next = board.copy()
-        board_next.put(pos, True)
-        if board_next.check_win(True):
-            results.append(verify_o)
-            break
-        elif board_next.nospace():
-            results.append(False)
-            if not verify_o:
-                break
-        else:
-            results.append(x_turns(board_next, verify_o))
-    if verify_o:
-        return any(results)
-    else:
-        return all(results)
 
-
-def x_turns(board: Board, verify_o: bool):
-    """Simulate "X's" turns.
-
-    Parameters
-    ----------
-    board : Board
-        The current Tic Tac Toe board state.
-    verify_o : bool
-        Determines whether we are verifying "O's" win or "X's" win.
-        True for "O," False for "X."
-
-    Returns
-    -------
-    bool
-        If verify_o is True:
+        If verify_o is True and player is False:
             - Returns True if "O" will win regardless of "X's" move.
             - Returns False if "O" will lose if "X" makes the right move.
 
-        If verify_o is False:
+        If verify_o is False and player is False:
             - Returns True if "X" will win with the right move.
             - Returns False if "X" will lose regardless of the move they make.
+
     """
     next_chess = board.is_empty()
     results = []
     for pos in next_chess:
         board_next = board.copy()
-        board_next.put(pos, False)
-        if board_next.check_win(False):
-            results.append(not verify_o)
+        board_next.put(pos, player)
+        if board_next.check_win(player):
+            results.append(not (verify_o != player))
             break
         elif board_next.nospace():
             results.append(False)
-            if verify_o:
+            if verify_o != player:
                 break
         else:
-            results.append(o_turns(board_next, verify_o))
-    if verify_o:
+            results.append(play_chess(board_next, verify_o, not player))
+    if verify_o != player:
         return all(results)
     else:
         return any(results)
@@ -107,9 +77,9 @@ def x_turns(board: Board, verify_o: bool):
 if __name__ == "__main__":
     print("O go first.")
     board = Board()
-    result = o_turns(board, True)
+    result = play_chess(board, True, True)
     print("O will win:", result)
 
     board = Board()
-    result = o_turns(board, False)
+    result = play_chess(board, False, True)
     print("X will win:", result)
